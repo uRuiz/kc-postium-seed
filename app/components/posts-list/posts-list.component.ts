@@ -1,4 +1,5 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Post } from "../../models/post";
 
@@ -9,6 +10,9 @@ import { Post } from "../../models/post";
 export class PostsListComponent {
 
     @Input() posts: Post[];
+
+    constructor (
+        private _router: Router) { }
 
     /*------------------------------------------------------------------------------------------------------------------|
      | ~~~ Red Path ~~~                                                                                                 |
@@ -26,4 +30,7 @@ export class PostsListComponent {
      | a navegar es '/posts', pasando como parámetro el identificador del post.                                        |
      |-----------------------------------------------------------------------------------------------------------------*/
 
+    postDetalle (post: Post): void {
+        this._router.navigate(['/posts', post.id]);
+    }  
 }
