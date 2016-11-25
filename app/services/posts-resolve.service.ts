@@ -20,6 +20,12 @@ export class PostsResolve implements Resolve<Post[]> {
          | mirar en los parámetros de la ruta, a ver qué encuentras.                               |
          |-----------------------------------------------------------------------------------------*/
 
+        let userId = route.params['userId'];
+            if ( userId != undefined) {
+                return this._postService.getUserPosts(userId);
+        }
+
+
         /*-----------------------------------------------------------------------------------------|
          | ~~~ Yellow Path ~~~                                                                     |
          |-----------------------------------------------------------------------------------------|

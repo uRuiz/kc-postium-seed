@@ -28,9 +28,14 @@ export class PostPreviewComponent {
      |------------------------------------------------------------------------------------------------------------------*/
    
     @Output() postSeleccionado: EventEmitter<Post> = new EventEmitter();
+    @Output() autorSeleccionado: EventEmitter<number> = new EventEmitter();
 
     notificarPostSeleccionado(): void {
         this.postSeleccionado.emit(this.post);
+    }
+
+    notificarAutorSeleccionado(): void {
+        this.autorSeleccionado.emit(this.post.author.id);
     }
 
     plainTextToHtml(text: string): string {
