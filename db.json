@@ -251,6 +251,21 @@
       ],
       "likes": 4,
       "id": 10
+    },
+    {
+      "title": "Prueba",
+      "intro": "Historia de Prueba",
+      "body": "Lorem ipsum dolor sit amen",
+      "publicationDate": 1480079910057,
+      "author": {
+        "id": 1,
+        "name": "KeepCoder",
+        "username": "keepcoder",
+        "email": "keepcoder@postium.com",
+        "avatar": "resources/images/keepcoder.jpg"
+      },
+      "likes": 0,
+      "id": 11
     }
   ],
   "categories": [

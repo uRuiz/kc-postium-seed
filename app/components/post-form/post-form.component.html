@@ -7,7 +7,7 @@
 | referencia del formulario en él.                                                            |
 |---------------------------------------------------------------------------------------------|
 -->
-<form novalidate>
+<form #postRef="ngForm" (ngSubmit)="submitPost(postRef)" novalidate>
     <!--
     |-------------------------------------------------------------------------------------------------|
     | Purple Path                                                                                     |
@@ -17,9 +17,19 @@
     |-------------------------------------------------------------------------------------------------|
     -->
     <input
+        id="title"
         type="text"
         placeholder="Título"
-        class="u-full-width">
+        class="u-full-width"
+        name="title"
+        ngModel
+        #titleRef="ngModel"
+        required>
+    <div *ngIf="titleRef.touched && titleRef.invalid" class="mensaje-error">
+        <div *ngIf="titleRef.errors.required">
+            El campo "Título"" es requerido.
+        </div>       
+    </div>
     <!--
     |-------------------------------------------------------------------------------------------------|
     | Purple Path                                                                                     |
@@ -29,9 +39,19 @@
     |-------------------------------------------------------------------------------------------------|
     -->
     <textarea
+        id="intro"
         placeholder="Introduce tu historia"
         class="u-full-width georgia-font"
-        autogrow></textarea>
+        autogrow
+        name="intro"
+        ngModel
+        #introRef="ngModel"
+        required></textarea>
+        <div *ngIf="introRef.touched && introRef.invalid" class="mensaje-error">
+            <div *ngIf="introRef.errors.required">
+                El campo "Introduce una historia" es requerido.
+            </div>       
+        </div>
     <!--
     |-------------------------------------------------------------------------------------------------|
     | Purple Path                                                                                     |
@@ -41,9 +61,19 @@
     |-------------------------------------------------------------------------------------------------|
     -->
     <textarea
+        id="body"
         placeholder="Cuenta tu historia"
         class="u-full-width georgia-font"
-        autogrow></textarea>
+        autogrow
+        name="body"
+        ngModel
+        #bodyRef="ngModel"
+        required></textarea>
+    <div *ngIf="bodyRef.touched && bodyRef.invalid" class="mensaje-error">
+        <div *ngIf="bodyRef.errors.required">
+            El campo "Cuenta tu historia" es requerido.
+        </div>       
+    </div>
     <div>
         <div>
             <label (click)="setScheduling(false)">
@@ -73,5 +103,8 @@
     | válido. Para ello vas a necesitar acceder al 'FormGroup' del formulario. |
     |--------------------------------------------------------------------------|
     -->
-    <button type="submit" class="button-primary u-pull-right">Publicar</button>
+    <button 
+        type="submit" 
+        class="button-primary u-pull-right"
+        [disabled]="postRef.invalid">Publicar</button>
 </form>
