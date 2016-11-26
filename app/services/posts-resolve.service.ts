@@ -20,9 +20,9 @@ export class PostsResolve implements Resolve<Post[]> {
          | mirar en los parámetros de la ruta, a ver qué encuentras.                               |
          |-----------------------------------------------------------------------------------------*/
 
-        let userId = route.params['userId'];
-            if ( userId != undefined) {
-                return this._postService.getUserPosts(userId);
+        let idUser = route.params['userId'];
+        if ( idUser != undefined) {
+            return this._postService.getUserPosts(idUser);
         }
 
 
@@ -33,6 +33,12 @@ export class PostsResolve implements Resolve<Post[]> {
          | a una categoría, llame a la función 'getCategoryPosts()' del servicio PostService.      |
          | Recuerda mirar en los parámetros de la ruta, a ver qué encuentras.                      |
          |-----------------------------------------------------------------------------------------*/
+
+
+        let idCategory = route.params['categoryId'];
+        if ( idCategory != undefined) {
+            return this._postService.getCategoryPosts(idCategory);
+        }
 
         return this._postService.getPosts();
     }

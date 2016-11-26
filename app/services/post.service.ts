@@ -5,6 +5,7 @@ import "rxjs/add/operator/map";
 
 import { BackendUri } from "./settings.service";
 import { Post } from "../models/post";
+import { Category } from '../models/category';
 
 @Injectable()
 export class PostService {
@@ -82,10 +83,21 @@ export class PostService {
          |   - Ordenación: _sort=publicationDate&_order=DESC                                                |
          |--------------------------------------------------------------------------------------------------*/
 
-        return this._http
-                   .get(`${this._backendUri}/posts`)
-                   .map((response: Response) => Post.fromJsonToList(response.json()));
+       return this._http
+                   .get(`${this._backendUri}/posts?_sort=publicationDate&_order=DESC&publicationDate_lte=${Date.now()}`)
+                   .map((response: Response) => {
+                        let posts: Post[] = Post.fromJsonToList(response.json());
+                        return posts.filter((post: Post) => {
+                            return post.categories && post.categories.length > 0 && post.categories.find((category:Category) => {
+                                return category.id == id;
+                            }) !== undefined;
+                        });
+                   });
+
+            
     }
+
+
 
     getPostDetails(id: number): Observable<Post> {
         return this._http
@@ -108,9 +120,7 @@ export class PostService {
         return  this._http
                    .post(`${this._backendUri}/posts`, post)
                    .map((respuesta: Response) => {
-                       // Obtenemos el cuerpo de la respuesta en formato JSON.
-                       let json = respuesta.json();
-                       // Creamos una instancia de Post.
+                       let json = respuesta.json();                       
                        return Post.fromJson(json);
                    });
     }
